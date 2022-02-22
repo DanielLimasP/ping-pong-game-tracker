@@ -1,4 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
+import { DB } from "../classes/db";
+import { TModel } from "../interfaces/model";
 
 export interface TScore {
   id: string;
@@ -10,7 +12,7 @@ export interface TScore {
   scoreDiff: () => void;
 }
 
-export class Score implements TScore {
+export class Score extends DB implements TScore, TModel<TScore> {
   id: string;
   player1_score: number;
   player2_score: number;
@@ -19,6 +21,7 @@ export class Score implements TScore {
   current_winner: string;
 
   constructor(score: TScore) {
+    super();
     this.id = uuidv4();
     this.player1_name = score.player1_name;
     this.player2_name = score.player2_name;

@@ -38,7 +38,7 @@ class Server {
       } else {
         console.log(colors.bgCyan.black(`\nTESTING environment disabled ❌`));
       }
-      console.log(colors.bgCyan.black(`App listening on port ${this.port}`));
+      console.log(colors.bgCyan.black(`App listening on port ${this.port}\n`));
     });
   }
 }
