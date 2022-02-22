@@ -2,6 +2,10 @@ import { environment } from "../../environment/environment";
 import express, { Application } from "express";
 import colors from "colors";
 
+// routes
+
+import scoreRoutes from "../routes/score.routes";
+
 class Server {
   private app: Application;
   private port: string;
@@ -20,7 +24,7 @@ class Server {
   }
 
   routes() {
-    return;
+    this.app.use(`/api/score`, scoreRoutes);
   }
 
   async db() {
