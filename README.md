@@ -19,9 +19,10 @@
    ```
 6. Go to ➡️ [localhost:3000](http://localhost:3000)
 
-### Docker
+### ps1 script
 
-TODO: Dockerize the app 🐋
+1. Run the `init.ps1` script if you are on windows
+2. Go to ➡️ [localhost:3000](http://localhost:3000)
 
 ## TEST 🃏
 
@@ -31,3 +32,9 @@ TODO: Dockerize the app 🐋
 ```bash
  npm run test
 ```
+
+## Notes
+
+For demonstrative purposes, ./public/data/collections dir was kept in the repository, in order to make the demonstration of how the API works simpler.
+
+- Daniel Limas 2022
