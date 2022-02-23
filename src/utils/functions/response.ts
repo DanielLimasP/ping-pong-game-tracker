@@ -6,4 +6,9 @@ export const response = (
   msg: string,
   data: any,
   error: any
-) => res.status(code).json({ msg, data, error });
+) => {
+  if (error) {
+    console.log(String(error));
+  }
+  return res.status(code).json({ msg, data, error });
+};
