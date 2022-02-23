@@ -13,9 +13,8 @@ class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || "3000";
-    this.db();
-    this.routes();
     this.middlewares();
+    this.routes();
   }
 
   middlewares() {
@@ -25,10 +24,6 @@ class Server {
 
   routes() {
     this.app.use(`/api/score`, scoreRoutes);
-  }
-
-  async db() {
-    // TODO: Add db conn
   }
 
   listen() {
