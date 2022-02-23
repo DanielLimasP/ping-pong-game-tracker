@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface TModel<T> {
-  read: () => TModel<T>;
-  readAll: () => TModel<T>;
-  save: () => void;
-  update: () => void;
-  delete: () => void;
+  find: (id: string) => Promise<T | undefined>;
+  read: () => Promise<T[]>;
+  save: (data: T) => Promise<void>;
+  delete: (data: string) => Promise<T[]>;
 }
