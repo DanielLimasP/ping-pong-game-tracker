@@ -5,6 +5,7 @@ import colors from "colors";
 // routes
 
 import scoreRoutes from "../routes/score.routes";
+import docsRoutes from "../routes/docs.routes";
 
 class Server {
   private app: Application;
@@ -24,6 +25,7 @@ class Server {
 
   routes() {
     this.app.use(`/api/score`, scoreRoutes);
+    this.app.use(`/api/docs`, docsRoutes);
   }
 
   listen() {

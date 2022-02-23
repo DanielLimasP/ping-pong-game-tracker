@@ -33,6 +33,10 @@
  npm run test
 ```
 
+## Docs 📕
+
+- Go to ➡️ [localhost:3000/api/docs](http://localhost:3000/api/docs)
+
 ## Notes
 
 For demonstrative purposes, ./public/data/collections dir was kept in the repository, in order to make the demonstration of how the API works simpler.
