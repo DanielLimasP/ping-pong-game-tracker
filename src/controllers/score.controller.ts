@@ -31,9 +31,9 @@ export const postScore = async (req: Request, res: Response) => {
   const data: TScoreDTO = req.body;
   try {
     const score = new Score();
-    const currentWinner = score.calcCurrentWinner(data);
+    const winner = score.calcWinner(data);
     const winDiff = score.calcDiff(data);
-    data.currentWinner = currentWinner;
+    data.winner = winner;
     data.scoreDiff = winDiff;
     const result = await score.save(data);
     return response(res, CREATED, "Saved score", result, null);

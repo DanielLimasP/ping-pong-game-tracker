@@ -16,7 +16,7 @@ export interface TScoreDTO {
   player2_score: number;
   player1_name: string;
   player2_name: string;
-  currentWinner?: string;
+  winner?: string;
   scoreDiff?: number;
 }
 
@@ -29,7 +29,7 @@ export class Score extends DB implements TModel<TScore> {
     return Math.abs(data.player1_score - data.player2_score);
   }
 
-  public calcCurrentWinner(data: TScore | TScoreDTO) {
+  public calcWinner(data: TScore | TScoreDTO) {
     if (data.player1_score < data.player2_score) {
       return data.player2_name;
     }
