@@ -1,5 +1,6 @@
 import { environment } from "../../environment/environment";
 import express, { Application } from "express";
+import cors from "cors";
 import colors from "colors";
 
 // routes
@@ -20,6 +21,7 @@ class Server {
 
   middlewares() {
     this.app.use(express.static("public"));
+    this.app.use(cors({}));
     this.app.use(express.json());
   }
 

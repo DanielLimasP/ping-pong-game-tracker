@@ -6,7 +6,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>App</title>
   </head>
-  <body>
-    <h1>Hello App!</h1>
+  <body style="width: 100%; font-family: Arial, Helvetica, sans-serif">
+    <div
+      style="
+        height: inherit;
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+      "
+    >
+      <div style="padding: 50px" class="player-names">
+        <label for="player1Name">Player 1 Name</label> <br />
+        <input
+          type="text"
+          style="margin-top: 15px; margin-bottom: 15px"
+          name="player1Name"
+          id="player1NameInput"
+        />
+        <br />
+        <label style="margin-top: 15px" for="player2Name">Player 2 Name</label>
+        <br />
+        <input
+          type="text"
+          style="margin-top: 15px"
+          name="player2Name"
+          id="player2NameInput"
+        />
+        <br />
+        <button style="margin-top: 15px" type="button" onclick="initGame()">
+          Continue
+        </button>
+      </div>
+    </div>
+    <div class="player-scores" style="visibility: hidden">
+      <div
+        style="
+          height: inherit;
+          width: 100%;
+          height: 100px;
+          display: flex;
+          justify-content: space-evenly;
+          align-content: center;
+        "
+      >
+        <div
+          style="
+            height: inherit;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-evenly;
+            align-content: center;
+          "
+        >
+          <h2 id="player1NameHeader"></h2>
+          <button type="button" onclick="addPlayer1Win()">Add win</button>
+        </div>
+        <div
+          style="
+            height: inherit;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-evenly;
+            align-content: center;
+          "
+        >
+          <h2 id="player2NameHeader"></h2>
+          <button type="button" onclick="addPlayer2Win()">Add win</button>
+        </div>
+      </div>
+      <div
+        style="
+          height: inherit;
+          width: 100%;
+          height: 100px;
+          display: flex;
+          justify-content: space-evenly;
+          align-content: center;
+        "
+      >
+        <div
+          style="
+            height: inherit;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-evenly;
+            align-content: center;
+          "
+        >
+          <h4>Wins:</h4>
+          <h1 id="player1Wins"></h1>
+        </div>
+        <div
+          style="
+            height: inherit;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-evenly;
+            align-content: center;
+          "
+        >
+          <h4>Wins:</h4>
+          <h1 id="player2Wins"></h1>
+        </div>
+      </div>
+      <div>
+        <hr />
+        <h1 id="currentWinner">Current winner:</h1>
+        <h1 id="winDifference">Win difference:</h1>
+      </div>
+      <div style="width: 100%; display: flex; justify-content: center">
+        <button type="button" onclick="saveGame()" style="float: right">
+          Save game
+        </button>
+      </div>
+    </div>
+    <script>
+      let player1Score = 0;
+      let player2Score = 0;
+      let player1Name = "";
+      let player2Name = "";
+
+      initGame = () => {
+        player1Name = document.getElementById("player1NameInput").value;
+        player2Name = document.getElementById("player2NameInput").value;
+        if (!player1Name || !player2Name) {
+          alert("You are missing at least one player name!");
+          return;
+        }
+        document.querySelector(".player-names").style.visibility = "hidden";
+        document.querySelector(".player-scores").style.visibility = "initial";
+        document.getElementById("player1NameHeader").innerHTML = player1Name;
+        document.getElementById("player2NameHeader").innerHTML = player2Name;
+        document.getElementById("player1Wins").innerHTML = player1Score;
+        document.getElementById("player2Wins").innerHTML = player2Score;
+      };
+
+      addPlayer1Win = () => {
+        player1Score += 1;
+        document.getElementById("player1Wins").innerHTML = player1Score;
+        calcCurrentWinner();
+      };
+
+      addPlayer2Win = () => {
+        player2Score += 1;
+        document.getElementById("player2Wins").innerHTML = player2Score;
+        calcCurrentWinner();
+      };
+
+      calcCurrentWinner = () => {
+        let currentWinner = "";
+        if (player1Score > player2Score) {
+          currentWinner = player1Name;
+        } else if (player1Score < player2Score) {
+          currentWinner = player2Name;
+        } else {
+          currentWinner = "Nobody";
+        }
+        document.getElementById("currentWinner").innerHTML =
+          "Current winner: " + currentWinner;
+        calcWinDiff();
+      };
+
+      calcWinDiff = () => {
+        const winDiff = Math.abs(player1Score - player2Score);
+        document.getElementById("winDifference").innerHTML =
+          "Win difference: " + winDiff;
+      };
+
+      saveGame = async () => {
+        const content = await postScore();
+        alert(content.msg);
+        resetGame();
+      };
+
+      resetGame = () => {
+        player1Name = "";
+        player2Name = "";
+        player1Score = 0;
+        player2Score = 0;
+        calcCurrentWinner();
+        calcWinDiff();
+        document.querySelector(".player-names").style.visibility = "initial";
+        document.querySelector(".player-scores").style.visibility = "hidden";
+        document.getElementById("player1NameInput").value = "";
+        document.getElementById("player2NameInput").value = "";
+      };
+
+      postScore = async () => {
+        const data = {
+          player1_score: player1Score,
+          player2_score: player2Score,
+          player1_name: player1Name,
+          player2_name: player2Name,
+        };
+        const url = "http://localhost:3000/api/score";
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const content = await res.json();
+        return content;
+      };
+    </script>
   </body>
 </html>
