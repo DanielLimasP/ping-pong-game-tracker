@@ -1,4 +1,4 @@
-# Ping Pong scoreboard
+# Ping Pong Game Tracker
 
 ## How to run 🚗
 
