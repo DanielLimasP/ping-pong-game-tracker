@@ -47,7 +47,7 @@ export const deleteScore = async (req: Request, res: Response) => {
   try {
     const score = new Score();
     const collection = await score.delete(id);
-    return response(res, OK, "", collection, null);
+    return response(res, OK, "Deleted score", collection, null);
   } catch (error) {
     return response(res, ERROR, INTERNAL_SERVER_ERROR, null, error);
   }

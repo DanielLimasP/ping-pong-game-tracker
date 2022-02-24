@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@types/jsonfile": "^6.1.0",
+    "@types/supertest": "^2.0.11",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
